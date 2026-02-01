@@ -1,0 +1,5 @@
+Function: calculate_checksum(data: bytes) -> int
+
+Calculates an 8-bit checksum by XORing all bytes together.
+Returns 0 for empty input.
+Raises TypeError if input is not bytes.

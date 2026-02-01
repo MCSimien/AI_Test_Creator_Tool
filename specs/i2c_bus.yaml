@@ -1,0 +1,42 @@
+# specs/i2c_bus.yaml
+interface:
+  name: I2C_CONTROLLER
+  type: i2c
+  
+  config:
+    clock_speed_hz: 400000
+    timeout_ms: 100
+    address_mode: 7-bit
+  
+  operations:
+    - name: write
+      parameters:
+        - device_addr: uint8
+        - data: bytes (max 256)
+      errors: [NACK, TIMEOUT, BUS_BUSY]
+    
+    - name: read
+      parameters:
+        - device_addr: uint8
+        - length: int (1-256)
+      errors: [NACK, TIMEOUT, BUS_BUSY]
+    
+    - name: write_then_read
+      parameters:
+        - device_addr: uint8
+        - write_data: bytes
+        - read_length: int
+      errors: [NACK, TIMEOUT, BUS_BUSY]
+    
+    - name: probe
+      parameters:
+        - device_addr: uint8
+      returns: bool
+
+  test_coverage:
+    - "Basic write and read operations"
+    - "Write then read (register access pattern)"
+    - "Device probe"
+    - "NACK on invalid address"
+    - "Timeout handling"
+    - "Boundary: max transfer size"

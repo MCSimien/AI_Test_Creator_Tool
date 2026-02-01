@@ -1,0 +1,31 @@
+# specs/ctrl_status.yaml
+register:
+  name: CTRL_STATUS
+  address: 0x1000
+  width: 32
+  reset_value: 0x00000000
+  
+  fields:
+    - name: ENABLE
+      bits: [0]
+      access: RW
+      description: "Enables the controller"
+      
+    - name: READY
+      bits: [1]
+      access: RO
+      description: "Indicates controller is ready"
+      
+    - name: MODE
+      bits: [4, 2]  # bits 4:2
+      access: RW
+      description: "Operating mode selector"
+      values:
+        0: IDLE
+        1: ACTIVE
+        2: LOW_POWER
+        
+    - name: ERROR_CODE
+      bits: [15, 8]  # bits 15:8
+      access: RO
+      description: "Error status code"
